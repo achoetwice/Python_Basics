@@ -7,6 +7,7 @@ def person():
 # Decorator without variable
 def equip_decorator(func):
     def equipped():
+        func()
         print (f'{func.__name__} got a equipment Sowrd!')
         print (f'I am a {func.__name__} with Sowrd!')
     return equipped
@@ -15,6 +16,7 @@ def equip_decorator(func):
 def Weapon(*name):
     def equip_decorator(func):
         def equipped():
+            func()
             print (f'{func.__name__} got a equipment {name}!')
             print (f'I am a {func.__name__} with {name}!')
         return equipped
@@ -23,11 +25,17 @@ def Weapon(*name):
 # Okay we got two type of waepon decorator
 @equip_decorator
 def dec_person():
-    return None
+    print ('Im a person')
 
 @Weapon('Shield', 'Sword')
 def dec_with_variable_person():
-    return None
+    print ('Im a person')
+
+# Recursive decorator layers
+@Weapon('Shield', 'Sword')
+@equip_decorator
+def hero_person():
+    print ('Im a person')
 
 if __name__ == '__main__':
     # equip_decorator(person)()
@@ -36,3 +44,7 @@ if __name__ == '__main__':
     print ('\n')
     dec_with_variable_person()
     print ('\n')
+    hero_person()
+    print ('\n')
+    print ('The order of decorator: When passing variable, from inner to outer, hero_person passed to equip_decorator then return equipped, equipped passed to Weapon')
+    print ('The order of decorator: When function is called, from outer to inner, Weapun called so func() is called first, which means the equipped in equip_decorator is called, so hero say with sword, then because the func goes into Weapon is equipped, so equipped says it got sowrd and shield, EOS.')
