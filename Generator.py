@@ -2,8 +2,9 @@
 # Use:python -m memory_profiler Generator.py and wait for a while
 '''
 TLDR:Itering a generator uses mush less memory than iter a list.
-Generator means yield while every next() method is called, but itering a list means iter over the whole list in a time, while itering a generator means yield a variable per loop till loop over.
-(i for i in range(100000) is a generator
+Generator means yield while every next() method is called, but itering a list means you need to have a list of numbers, which takes lots of memory to store.
+(i for i in range(100000)) is a generator
+[i for i in range(100000)] is a list full of numbers
 '''
 
 '''
@@ -36,3 +37,13 @@ if __name__ == '__main__':
     for_ranger()
     for_list()
 
+'''
+Note: 
+Q: What's the difference between Iterator and Generator?
+A: 
+Iterator is a more general concept: Any object whose class has a next method (__next__ in Python 3) and an __iter__ method that does return self.
+Generator is built by calling a function that has one or more yield expressions , and is an object that meets the previous paragraph's definition of an iterator.
+So generator is a kind of iterator, but not vice versa.
+When you need a class with somewhat complex behavior, or want to expose other methods besides next (and __iter__ and __init__), use iterator.
+When you just want simplely response when next is called, generator is easier to code.
+'''

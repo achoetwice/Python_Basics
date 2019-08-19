@@ -6,6 +6,8 @@ Which means that object can be used by "with".
 example:
 1. In django, "with transaction.atomic():" guaranteed that the "commit or rollback" will be executed as a __exit__ method.
 2. In python, "with open(filename) as f :" guaranteed that f.close() will be done as a __exit__ method. 
+
+ps. "with" can also be replaced by try/finally to make sure things done when exception or finished. 
 '''
 
 class Custom_CM():
@@ -14,7 +16,6 @@ class Custom_CM():
     def __enter__(self):
         print('I enter.')
         return self.name
-
     def __exit__(self, exc_type, exc_value, traceback):
         # The three parameters in __exit__ is put because "with" method will pass three parameters to __exit__,
         # Those parameters are describing the exception which make __exit__ triggered, if no exception, those will be None,None,None
